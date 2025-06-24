@@ -1,18 +1,15 @@
-package com.example.shinesales.ui.auth
-
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
-import androidx.compose.runtime.*
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
+import androidx.compose.runtime.*
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.navigation.compose.rememberNavController
+import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 
 @Composable
 fun LoginScreen(navController: NavController) {
@@ -20,6 +17,10 @@ fun LoginScreen(navController: NavController) {
     var password by remember { mutableStateOf("") }
     var errorMessage by remember { mutableStateOf("") }
     var isPasswordVisible by remember { mutableStateOf(false) }
+
+    fun isEmailValid(email: String): Boolean {
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
+    }
 
     Column(
         modifier = Modifier
@@ -37,10 +38,13 @@ fun LoginScreen(navController: NavController) {
 
         TextField(
             value = email,
-            onValueChange = { email = it },
+            onValueChange = {
+                email = it
+                if (errorMessage.isNotEmpty()) errorMessage = ""
+            },
             label = { Text("Email") },
             modifier = Modifier.fillMaxWidth(),
-            isError = errorMessage.isNotEmpty() && email.isBlank(),
+            isError = errorMessage.isNotEmpty() && (email.isBlank() || !isEmailValid(email)),
             singleLine = true
         )
 
@@ -48,7 +52,10 @@ fun LoginScreen(navController: NavController) {
 
         TextField(
             value = password,
-            onValueChange = { password = it },
+            onValueChange = {
+                password = it
+                if (errorMessage.isNotEmpty()) errorMessage = ""
+            },
             label = { Text("Password") },
             visualTransformation = if (isPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
             modifier = Modifier.fillMaxWidth(),
@@ -75,18 +82,23 @@ fun LoginScreen(navController: NavController) {
 
         Button(
             onClick = {
-                errorMessage = ""
-                if (email.isBlank() || password.isBlank()) {
-                    errorMessage = "Email and password must not be empty."
-                } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                    errorMessage = "Invalid email format."
-                } else {
-                    // Add your login logic here (e.g., validation, ViewModel call)
-                    navController.navigate("product_list")
+                when {
+                    email.isBlank() || password.isBlank() -> {
+                        errorMessage = "Email and password must not be empty."
+                    }
+                    !isEmailValid(email) -> {
+                        errorMessage = "Invalid email format."
+                    }
+                    else -> {
+                        errorMessage = ""
+                        navController.navigate("product_list") {
+                            popUpTo("login") { inclusive = true }
+                        }
+                    }
                 }
             },
             modifier = Modifier.fillMaxWidth(),
-            enabled = email.isNotBlank() && password.isNotBlank()
+            enabled = true
         ) {
             Text("Login")
         }
@@ -110,5 +122,5 @@ fun LoginScreen(navController: NavController) {
 @Preview(showBackground = true)
 @Composable
 fun LoginScreenPreview() {
-    LoginScreen(navController = rememberNavController())
+    LoginScreen(navController = androidx.navigation.compose.rememberNavController())
 }

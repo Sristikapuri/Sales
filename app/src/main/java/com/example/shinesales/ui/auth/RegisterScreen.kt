@@ -2,17 +2,15 @@ package com.example.shinesales.ui.auth
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
-import androidx.compose.runtime.*
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
+import androidx.compose.runtime.*
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
 
@@ -37,7 +35,7 @@ fun RegisterScreen(navController: NavController) {
 
         TextField(
             value = email,
-            onValueChange = { email = it },
+            onValueChange = { email = it; if (errorMessage.isNotEmpty()) errorMessage = "" },
             label = { Text("Email") },
             modifier = Modifier.fillMaxWidth(),
             isError = errorMessage.isNotEmpty() && email.isBlank(),
@@ -48,7 +46,7 @@ fun RegisterScreen(navController: NavController) {
 
         TextField(
             value = password,
-            onValueChange = { password = it },
+            onValueChange = { password = it; if (errorMessage.isNotEmpty()) errorMessage = "" },
             label = { Text("Password") },
             visualTransformation = if (isPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
             modifier = Modifier.fillMaxWidth(),
@@ -66,7 +64,7 @@ fun RegisterScreen(navController: NavController) {
 
         TextField(
             value = confirmPassword,
-            onValueChange = { confirmPassword = it },
+            onValueChange = { confirmPassword = it; if (errorMessage.isNotEmpty()) errorMessage = "" },
             label = { Text("Confirm Password") },
             visualTransformation = if (isConfirmPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
             modifier = Modifier.fillMaxWidth(),
@@ -93,22 +91,22 @@ fun RegisterScreen(navController: NavController) {
 
         Button(
             onClick = {
-                errorMessage = ""
-                if (email.isBlank() || password.isBlank() || confirmPassword.isBlank()) {
-                    errorMessage = "All fields are required."
-                } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                    errorMessage = "Invalid email format."
-                } else if (password.length < 6) {
-                    errorMessage = "Password must be at least 6 characters."
-                } else if (password != confirmPassword) {
-                    errorMessage = "Passwords do not match."
-                } else {
-                    // Add register logic here
-                    navController.navigate("login")
+                when {
+                    email.isBlank() || password.isBlank() || confirmPassword.isBlank() -> {
+                        errorMessage = "All fields are required."
+                    }
+                    password != confirmPassword -> {
+                        errorMessage = "Passwords do not match."
+                    }
+                    else -> {
+                        errorMessage = ""
+                        navController.navigate("login") {
+                            popUpTo("register") { inclusive = true }
+                        }
+                    }
                 }
             },
-            modifier = Modifier.fillMaxWidth(),
-            enabled = email.isNotBlank() && password.isNotBlank() && confirmPassword.isNotBlank()
+            modifier = Modifier.fillMaxWidth()
         ) {
             Text("Register")
         }
