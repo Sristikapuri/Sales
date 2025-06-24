@@ -22,6 +22,7 @@ fun AddEditProductScreen(
     var description by remember { mutableStateOf(productToEdit?.description ?: "") }
     var priceText by remember { mutableStateOf(productToEdit?.price?.toString() ?: "") }
     var quantityText by remember { mutableStateOf(productToEdit?.quantity?.toString() ?: "") }
+    var errorMessage by remember { mutableStateOf("") }
 
     Column(
         modifier = Modifier
@@ -38,7 +39,8 @@ fun AddEditProductScreen(
             value = name,
             onValueChange = { name = it },
             label = { Text("Name") },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            isError = errorMessage.isNotEmpty() && name.isBlank()
         )
 
         Spacer(Modifier.height(8.dp))
@@ -47,7 +49,8 @@ fun AddEditProductScreen(
             value = description,
             onValueChange = { description = it },
             label = { Text("Description") },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            isError = errorMessage.isNotEmpty() && description.isBlank()
         )
 
         Spacer(Modifier.height(8.dp))
@@ -56,7 +59,8 @@ fun AddEditProductScreen(
             value = priceText,
             onValueChange = { priceText = it },
             label = { Text("Price") },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            isError = errorMessage.isNotEmpty() && priceText.toDoubleOrNull() == null
         )
 
         Spacer(Modifier.height(8.dp))
@@ -65,28 +69,42 @@ fun AddEditProductScreen(
             value = quantityText,
             onValueChange = { quantityText = it },
             label = { Text("Quantity") },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            isError = errorMessage.isNotEmpty() && quantityText.toIntOrNull() == null
         )
+
+        if (errorMessage.isNotEmpty()) {
+            Text(
+                text = errorMessage,
+                color = MaterialTheme.colorScheme.error,
+                style = MaterialTheme.typography.bodySmall,
+                modifier = Modifier.padding(top = 4.dp)
+            )
+        }
 
         Spacer(Modifier.height(16.dp))
 
         Button(onClick = {
-            val price = priceText.toDoubleOrNull() ?: 0.0
-            val quantity = quantityText.toIntOrNull() ?: 0
-
-            val product = Product(
-                id = productToEdit?.id ?: 0,
-                name = name,
-                description = description,
-                price = price,
-                quantity = quantity
-            )
-            if (productToEdit == null) {
-                viewModel.addProduct(product)
+            errorMessage = ""
+            val price = priceText.toDoubleOrNull()
+            val quantity = quantityText.toIntOrNull()
+            if (name.isBlank() || description.isBlank() || price == null || quantity == null) {
+                errorMessage = "All fields must be filled correctly."
             } else {
-                viewModel.updateProduct(product)
+                val product = Product(
+                    id = productToEdit?.id ?: 0,
+                    name = name,
+                    description = description,
+                    price = price,
+                    quantity = quantity
+                )
+                if (productToEdit == null) {
+                    viewModel.addProduct(product)
+                } else {
+                    viewModel.updateProduct(product)
+                }
+                navController.navigateUp()
             }
-            navController.navigateUp()
         }, modifier = Modifier.fillMaxWidth()) {
             Text("Save")
         }
