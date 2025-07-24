@@ -1,3 +1,6 @@
+// ProductViewModel.kt
+// ViewModel for managing product data and business logic
+
 package com.example.shinesales.viewmodel
 
 import androidx.lifecycle.ViewModel   // ✅ Required import
