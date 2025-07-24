@@ -1,3 +1,7 @@
+// MainActivity.kt
+// Entry point for the Shine Sales app
+// Handles Compose navigation setup
+
 package com.example.shinesales
 
 import android.os.Bundle

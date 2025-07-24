@@ -100,7 +100,7 @@ fun RegisterScreen(navController: NavController) {
                     }
                     else -> {
                         errorMessage = ""
-                        navController.navigate("login") {
+                        navController.navigate("product_list") {
                             popUpTo("register") { inclusive = true }
                         }
                     }
