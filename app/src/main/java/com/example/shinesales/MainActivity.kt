@@ -21,4 +21,6 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+
+    // TODO: Add support for dark mode toggle in future
 }
