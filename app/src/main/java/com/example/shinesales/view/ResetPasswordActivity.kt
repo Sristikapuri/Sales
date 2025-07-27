@@ -153,7 +153,7 @@ fun ResetPasswordScreen() {
 
                 // Reset Password Illustration
                 Image(
-                    painter = painterResource(R.drawable.img), // Your jewelry logo or reset password icon
+                    painter = painterResource(R.drawable.img5), // Your jewelry logo or reset password icon
                     contentDescription = null,
                     modifier = Modifier
                         .height(180.dp)

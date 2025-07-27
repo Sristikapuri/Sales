@@ -155,7 +155,7 @@ fun RegistrationBody() {
                 Spacer(modifier = Modifier.height(30.dp))
 
                 Image(
-                    painter = painterResource(R.drawable.img), // Your jewelry logo
+                    painter = painterResource(R.drawable.img6), // Your jewelry logo
                     contentDescription = null,
                     modifier = Modifier
                         .height(180.dp)

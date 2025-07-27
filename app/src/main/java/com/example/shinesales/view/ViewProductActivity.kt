@@ -282,7 +282,7 @@ fun ProductCard(
                     )
                 } else {
                     Image(
-                        painter = painterResource(R.drawable.img),
+                        painter = painterResource(R.drawable.img5),
                         contentDescription = product.productName,
                         modifier = Modifier.size(60.dp)
                     )

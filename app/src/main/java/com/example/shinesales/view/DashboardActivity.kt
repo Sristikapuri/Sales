@@ -279,7 +279,7 @@ fun HomeScreen(
             ) {
                 Image(
                     painter = painterResource(R.drawable.img6), // Replace with your jewelry showcase image
-                    contentDescription = "Premium Jewellery Collection",
+                    contentDescription = "Premium Jewellry Collection",
                     modifier = Modifier.fillMaxSize(),
                     contentScale = ContentScale.Crop
                 )

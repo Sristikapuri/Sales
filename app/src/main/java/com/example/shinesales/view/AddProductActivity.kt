@@ -96,7 +96,7 @@ fun AddProductBody(
             TopAppBar(
                 title = {
                     Text(
-                        "Add Jewelry Product",
+                        "Add Jewellery Product",
                         fontWeight = FontWeight.Bold,
                         color = Color.White
                     )
@@ -145,7 +145,7 @@ fun AddProductBody(
                         )
                         Spacer(modifier = Modifier.height(8.dp))
                         Text(
-                            text = "Add Your Jewelry Product",
+                            text = "Add Your Jewellery Product",
                             fontSize = 18.sp,
                             fontWeight = FontWeight.Bold,
                             color = primaryColor,

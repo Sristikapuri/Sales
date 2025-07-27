@@ -218,8 +218,8 @@ fun EditProductScreen(
                                         .clip(RoundedCornerShape(8.dp)),
                                     contentScale = ContentScale.Crop,
                                     // ADD FALLBACK FOR FAILED LOADS
-                                    fallback = painterResource(R.drawable.img),
-                                    error = painterResource(R.drawable.img)
+                                    fallback = painterResource(R.drawable.img6),
+                                    error = painterResource(R.drawable.img5)
                                 )
                             }
                             else -> {
