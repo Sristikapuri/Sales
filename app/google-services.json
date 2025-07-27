@@ -1,13 +1,14 @@
 {
   "project_info": {
-    "project_number": "208476032308",
-    "project_id": "shinesales2",
-    "storage_bucket": "shinesales2.firebasestorage.app"
+    "project_number": "276075358668",
+    "firebase_url": "https://shinesalessristika-default-rtdb.firebaseio.com",
+    "project_id": "shinesalessristika",
+    "storage_bucket": "shinesalessristika.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:208476032308:android:4c9a16e7e57e6dc6f6e961",
+        "mobilesdk_app_id": "1:276075358668:android:3941eabaf69c5c31ce5569",
         "android_client_info": {
           "package_name": "com.example.shinesales"
         }
@@ -15,7 +16,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBNXR-aciZnHTBn_QyPujOjsUK34gn9OAk"
+          "current_key": "AIzaSyCn8yTRGSt89HeRiSD8ljpgR-0JiqmPrkw"
         }
       ],
       "services": {
