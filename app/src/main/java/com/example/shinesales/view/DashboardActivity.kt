@@ -73,7 +73,7 @@ fun DashboardScreen() {
 
             repo.getUserByID(currentUser.uid) { user, success, message ->
                 if (success && user != null) {
-                    userName = user.fullName.ifEmpty { "Jewelry Lover" }
+                    userName = user.fullName.ifEmpty { "Jewellery Lover" }
                     userEmail = user.email
                     userPhone = user.phoneNumber
                     userAddress = user.address
@@ -240,7 +240,7 @@ fun HomeScreen(
                     )
                     Spacer(modifier = Modifier.height(4.dp))
                     Text(
-                        "Discover premium jewelry collection",
+                        "Discover premium jewellery collection",
                         fontSize = 14.sp,
                         color = Color.White.copy(alpha = 0.9f)
                     )
@@ -252,7 +252,7 @@ fun HomeScreen(
                     contentAlignment = Alignment.Center
                 ) {
                     Image(
-                        painter = painterResource(R.drawable.img),
+                        painter = painterResource(R.drawable.img6),
                         contentDescription = "Profile",
                         modifier = Modifier
                             .size(50.dp)
@@ -264,7 +264,7 @@ fun HomeScreen(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // 1. Attractive Jewelry Showcase Image (First Position)
+        // 1. Attractive Jewellery Showcase Image (First Position)
         Card(
             modifier = Modifier
                 .fillMaxWidth()
@@ -278,8 +278,8 @@ fun HomeScreen(
                     .height(200.dp)
             ) {
                 Image(
-                    painter = painterResource(R.drawable.img), // Replace with your jewelry showcase image
-                    contentDescription = "Premium Jewelry Collection",
+                    painter = painterResource(R.drawable.img6), // Replace with your jewelry showcase image
+                    contentDescription = "Premium Jewellery Collection",
                     modifier = Modifier.fillMaxSize(),
                     contentScale = ContentScale.Crop
                 )
@@ -809,7 +809,7 @@ fun ProfileScreen(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Image(
-                    painter = painterResource(R.drawable.beatiful),
+                    painter = painterResource(R.drawable.img7),
                     contentDescription = null,
                     modifier = Modifier
                         .size(160.dp)
