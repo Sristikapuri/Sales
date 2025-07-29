@@ -2,7 +2,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-    id("org.jetbrains.kotlin.kapt") // ✅ kapt plugin for Room, Firebase, etc.
+    id("org.jetbrains.kotlin.kapt")
+    alias(libs.plugins.google.gms.google.services) // ✅ kapt plugin for Room, Firebase, etc.
     // id("com.google.gms.google-services") // 🔒 Uncomment this later when adding Firebase
 }
 
@@ -68,6 +69,8 @@ dependencies {
 
     // Room Database
     implementation("androidx.room:room-runtime:2.5.2")
+    implementation(libs.firebase.auth)
+    implementation(libs.firebase.database)
     kapt("androidx.room:room-compiler:2.5.2")
     implementation("androidx.room:room-ktx:2.5.2")
 
