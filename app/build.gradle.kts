@@ -2,19 +2,18 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-    id("org.jetbrains.kotlin.kapt")
-    alias(libs.plugins.google.gms.google.services) // ✅ kapt plugin for Room, Firebase, etc.
-    // id("com.google.gms.google-services") // 🔒 Uncomment this later when adding Firebase
+    id("org.jetbrains.kotlin.kapt") // For Room or other annotation processors
+    id("com.google.gms.google-services") // Firebase plugin
 }
 
 android {
     namespace = "com.example.beautyhub"
-    compileSdk = 36
+    compileSdk = 34 // Use stable compileSdk (36 is preview as of now)
 
     defaultConfig {
         applicationId = "com.example.beautyhub"
         minSdk = 24
-        targetSdk = 36
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -44,14 +43,15 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1" // ✅ Compatible with Kotlin 2.0.21
-        // Optional: Upgrade to 1.6.1 if using newer Compose BOM
+        kotlinCompilerExtensionVersion = "1.5.1" // Make sure it matches your Compose BOM
     }
 }
 
 dependencies {
-    // Jetpack Compose BOM and UI
+    // Compose BOM (Bill of Materials)
     implementation(platform("androidx.compose:compose-bom:2024.09.00"))
+
+    // Core Compose dependencies
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
@@ -67,17 +67,20 @@ dependencies {
     // Navigation for Compose
     implementation("androidx.navigation:navigation-compose:2.7.7")
 
-    // Room Database
+    // Room Database (if you plan to use local database)
     implementation("androidx.room:room-runtime:2.5.2")
-    implementation(libs.firebase.auth)
-    implementation(libs.firebase.database)
-    kapt("androidx.room:room-compiler:2.5.2")
     implementation("androidx.room:room-ktx:2.5.2")
+    kapt("androidx.room:room-compiler:2.5.2")
 
-    // Compose Animations (Optional)
+    // Firebase BoM and services
+    implementation(platform("com.google.firebase:firebase-bom:32.3.1"))
+    implementation("com.google.firebase:firebase-auth-ktx")
+    implementation("com.google.firebase:firebase-database-ktx")
+
+    // Optional Compose animation
     implementation("androidx.compose.animation:animation-core:1.6.1")
 
-    // Debugging and Previews
+    // Debugging and Preview
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 
@@ -88,3 +91,6 @@ dependencies {
     androidTestImplementation(platform("androidx.compose:compose-bom:2024.09.00"))
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
 }
+
+// Apply the Firebase services plugin
+apply(plugin = "com.google.gms.google-services")
