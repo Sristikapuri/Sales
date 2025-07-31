@@ -23,7 +23,6 @@ fun SplashScreen(navController: NavHostController) {
             popUpTo("splash") { inclusive = true }
         }
     }
-
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.primary
@@ -35,16 +34,12 @@ fun SplashScreen(navController: NavHostController) {
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // Logo image
             Image(
-                painter = painterResource(id = R.drawable.img),
+                painter = painterResource(id = R.drawable.img), // make sure 'img' exists in res/drawable!
                 contentDescription = "BeautyHub Logo",
                 modifier = Modifier.size(200.dp)
             )
-
             Spacer(modifier = Modifier.height(64.dp))
-
-            // Welcome text
             Text(
                 text = "Welcome to BeautyHub",
                 style = MaterialTheme.typography.headlineMedium,

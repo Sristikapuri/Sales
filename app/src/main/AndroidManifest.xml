@@ -11,6 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BeautyHub">
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -18,10 +19,15 @@
             android:theme="@style/Theme.BeautyHub">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".view.AddProductActivity" />
+        <activity android:name=".view.EditProductActivity" />
+        <activity android:name=".view.ViewProductActivity" />
+        <activity android:name=".view.ResetPasswordActivity" />
+
     </application>
 
 </manifest>

@@ -1,9 +1,6 @@
 package com.example.beautyhub.view
 
-import android.os.Bundle
 import android.widget.Toast
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -25,28 +22,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
 import com.example.beautyhub.R
-import com.example.beautyhub.ui.theme.BeautyHubTheme
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-
-class LoginActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            BeautyHubTheme {
-                val navController = rememberNavController()
-                NavHost(navController, startDestination = "login") {
-                    composable("login") { LoginScreen(navController) }
-                    composable("register") { RegisterScreen(navController) }
-                }
-            }
-        }
-    }
-}
 
 @Composable
 fun LoginScreen(navController: NavHostController) {
@@ -54,31 +32,24 @@ fun LoginScreen(navController: NavHostController) {
     var password by remember { mutableStateOf("") }
     var passwordVisible by remember { mutableStateOf(false) }
     var isLoading by remember { mutableStateOf(false) }
-
-    val backgroundPainter = painterResource(id = R.drawable.img3)
     val context = LocalContext.current
     val auth = Firebase.auth
+    val backgroundPainter = painterResource(id = R.drawable.img3)
 
     Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
         Box(modifier = Modifier.fillMaxSize()) {
             Image(
                 painter = backgroundPainter,
-                contentDescription = "Background Image",
+                contentDescription = null,
                 modifier = Modifier.fillMaxSize(),
                 alpha = 0.15f
             )
-
             Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(24.dp)
-                    .align(Alignment.Center),
+                modifier = Modifier.fillMaxWidth().padding(24.dp).align(Alignment.Center),
                 verticalArrangement = Arrangement.Center
             ) {
                 Text("Login", style = MaterialTheme.typography.headlineMedium, color = MaterialTheme.colorScheme.primary)
-
                 Spacer(modifier = Modifier.height(16.dp))
-
                 OutlinedTextField(
                     value = email,
                     onValueChange = { email = it },
@@ -87,30 +58,25 @@ fun LoginScreen(navController: NavHostController) {
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email, imeAction = ImeAction.Next),
                     modifier = Modifier.fillMaxWidth()
                 )
-
                 Spacer(modifier = Modifier.height(8.dp))
-
                 OutlinedTextField(
                     value = password,
                     onValueChange = { password = it },
                     label = { Text("Password") },
                     singleLine = true,
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password, imeAction = ImeAction.Done),
-                    keyboardActions = KeyboardActions(onDone = {}),
                     visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
                     trailingIcon = {
                         IconButton(onClick = { passwordVisible = !passwordVisible }) {
                             Icon(
                                 imageVector = if (passwordVisible) Icons.Default.Visibility else Icons.Default.VisibilityOff,
-                                contentDescription = "Toggle Password Visibility"
+                                contentDescription = if (passwordVisible) "Hide password" else "Show password"
                             )
                         }
                     },
                     modifier = Modifier.fillMaxWidth()
                 )
-
                 Spacer(modifier = Modifier.height(24.dp))
-
                 Button(
                     onClick = {
                         if (email.isNotBlank() && password.isNotBlank()) {
@@ -120,7 +86,9 @@ fun LoginScreen(navController: NavHostController) {
                                     isLoading = false
                                     if (task.isSuccessful) {
                                         Toast.makeText(context, "Login successful", Toast.LENGTH_SHORT).show()
-                                        // TODO: Navigate to home
+                                        navController.navigate("dashboard") {
+                                            popUpTo("login") { inclusive = true }
+                                        }
                                     } else {
                                         Toast.makeText(context, "Authentication failed: ${task.exception?.message}", Toast.LENGTH_LONG).show()
                                     }
@@ -130,8 +98,8 @@ fun LoginScreen(navController: NavHostController) {
                         }
                     },
                     modifier = Modifier.fillMaxWidth(),
-                    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary),
                     shape = RoundedCornerShape(8.dp),
+                    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary),
                     contentPadding = PaddingValues(vertical = 14.dp)
                 ) {
                     if (isLoading) {
@@ -140,14 +108,19 @@ fun LoginScreen(navController: NavHostController) {
                         Text("Login", color = Color.White, style = MaterialTheme.typography.titleLarge)
                     }
                 }
-
                 Spacer(modifier = Modifier.height(16.dp))
-
                 Text(
-                    text = "Don't have an account? Register",
-                    modifier = Modifier.fillMaxWidth().clickable {
-                        navController.navigate("register")
-                    },
+                    "Don't have an account? Register",
+                    modifier = Modifier.fillMaxWidth().clickable { navController.navigate("register") },
+                    textAlign = TextAlign.Center,
+                    color = MaterialTheme.colorScheme.primary,
+                    fontSize = 14.sp
+                )
+                
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(
+                    "Forgot Password?",
+                    modifier = Modifier.fillMaxWidth().clickable { navController.navigate("reset_password") },
                     textAlign = TextAlign.Center,
                     color = MaterialTheme.colorScheme.primary,
                     fontSize = 14.sp
