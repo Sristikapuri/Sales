@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Gold Theme Colors -->
+    <color name="gold_200">#FFFFD700</color>
+    <color name="gold_500">#FFDAA520</color>
+    <color name="gold_700">#FFB8860B</color>
+    <color name="gold_light">#FFFFF0B3</color>
+    <color name="gold_dark">#FF8B7500</color>
+    <color name="gold_background">#FFFFAE60</color>
+    <color name="gold_surface">#FFFFF8DC</color>
+    <color name="text_on_gold">#FF3E2723</color>
+    
+    <!-- Keep original colors for backward compatibility -->
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
