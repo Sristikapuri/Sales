@@ -266,10 +266,10 @@ fun HomeScreen(
                     contentAlignment = Alignment.Center
                 ) {
                     Image(
-                        painter = painterResource(R.drawable.img6),
+                        painter = painterResource(R.drawable.images),
                         contentDescription = "Profile",
                         modifier = Modifier
-                            .size(50.dp)
+                            .size(160.dp)
                             .clip(CircleShape)
                     )
                 }
@@ -823,7 +823,7 @@ fun ProfileScreen(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Image(
-                    painter = painterResource(R.drawable.img7),
+                    painter = painterResource(R.drawable.img5),
                     contentDescription = null,
                     modifier = Modifier
                         .size(160.dp)

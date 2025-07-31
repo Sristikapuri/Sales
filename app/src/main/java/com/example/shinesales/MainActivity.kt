@@ -170,9 +170,9 @@ fun SplashScreen(onNavigateToLogin: () -> Unit) {
                             )
                     ) {
                         Image(
-                            painter = painterResource(id = R.drawable.img5),
+                            painter = painterResource(id = R.drawable.images1),
                             contentDescription = "Shine Sales Logo",
-                            modifier = Modifier.size(100.dp)
+                            modifier = Modifier.size(160.dp)
                         )
                     }
                 }
