@@ -30,6 +30,7 @@ import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.delay
 import com.example.shinesales.view.LoginActivity
 import com.example.shinesales.ui.theme.ShineSalesTheme
+import com.example.shinesales.ui.theme.*
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -85,19 +86,19 @@ fun SplashScreen(onNavigateToLogin: () -> Unit) {
         onNavigateToLogin()
     }
 
-    // Gradient colors for jewelry theme
+    // Gradient colors for dark gray theme
     val gradientColors = listOf(
-        Color(0xFF6A1B9A), // Deep Purple
-        Color(0xFF8E24AA), // Purple
-        Color(0xFFAB47BC), // Light Purple
-        Color(0xFFBA68C8), // Lighter Purple
-        Color(0xFFE1BEE7)  // Very Light Purple
+        GrayBackground, // Dark Background
+        GraySurface,   // Dark Surface
+        GrayCard,      // Card Background
+        Gray40,        // Medium Gray
+        Gray80         // Primary Dark Gray
     )
 
-    val goldGradient = listOf(
-        Color(0xFFFFD700), // Gold
-        Color(0xFFFFA000), // Amber
-        Color(0xFFFF8F00)  // Dark Amber
+    val accentGradient = listOf(
+        AccentBlue,    // Light Blue accent
+        Gray80,        // Primary Dark Gray
+        GrayDark80     // Very Dark Gray
     )
 
     Box(
@@ -131,7 +132,7 @@ fun SplashScreen(onNavigateToLogin: () -> Unit) {
                     .rotate(-rotationAngle * 0.7f)
                     .alpha(0.15f)
                     .background(
-                        brush = Brush.radialGradient(goldGradient),
+                        brush = Brush.radialGradient(accentGradient),
                         CircleShape
                     )
             )
@@ -154,7 +155,7 @@ fun SplashScreen(onNavigateToLogin: () -> Unit) {
                     shape = CircleShape,
                     elevation = CardDefaults.cardElevation(defaultElevation = 12.dp),
                     colors = CardDefaults.cardColors(
-                        containerColor = Color.White
+                        containerColor = GrayCard
                     )
                 ) {
                     Box(
@@ -163,7 +164,7 @@ fun SplashScreen(onNavigateToLogin: () -> Unit) {
                             .fillMaxSize()
                             .background(
                                 brush = Brush.radialGradient(
-                                    colors = goldGradient
+                                    colors = accentGradient
                                 ),
                                 shape = CircleShape
                             )
@@ -193,7 +194,7 @@ fun SplashScreen(onNavigateToLogin: () -> Unit) {
                         Card(
                             shape = RoundedCornerShape(16.dp),
                             colors = CardDefaults.cardColors(
-                                containerColor = Color.White.copy(alpha = 0.15f)
+                                containerColor = GrayCard.copy(alpha = 0.9f)
                             ),
                             modifier = Modifier.padding(horizontal = 16.dp)
                         ) {
@@ -201,7 +202,7 @@ fun SplashScreen(onNavigateToLogin: () -> Unit) {
                                 text = "✨ Shine Sales ✨",
                                 fontSize = 36.sp,
                                 fontWeight = FontWeight.ExtraBold,
-                                color = Color.White,
+                                color = LightGray,
                                 textAlign = TextAlign.Center,
                                 modifier = Modifier.padding(
                                     horizontal = 24.dp,
@@ -216,7 +217,7 @@ fun SplashScreen(onNavigateToLogin: () -> Unit) {
                         Card(
                             shape = RoundedCornerShape(20.dp),
                             colors = CardDefaults.cardColors(
-                                containerColor = goldGradient[0].copy(alpha = 0.9f)
+                                containerColor = AccentBlue.copy(alpha = 0.9f)
                             )
                         ) {
                             Text(
@@ -236,7 +237,7 @@ fun SplashScreen(onNavigateToLogin: () -> Unit) {
 
                         // Loading indicator
                         CircularProgressIndicator(
-                            color = goldGradient[0],
+                            color = accentGradient[0],
                             strokeWidth = 3.dp,
                             modifier = Modifier.size(32.dp)
                         )

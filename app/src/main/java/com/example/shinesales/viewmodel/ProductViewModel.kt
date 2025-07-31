@@ -3,11 +3,13 @@ package com.example.shinesales.viewmodel
 import android.content.Context
 import android.net.Uri
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.shinesales.model.ProductModel
 import com.example.shinesales.repository.ProductRepositoryImpl
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 
 class ProductViewModel(private val repo: ProductRepositoryImpl) : ViewModel() {
 
@@ -27,36 +29,36 @@ class ProductViewModel(private val repo: ProductRepositoryImpl) : ViewModel() {
         repo.updateProduct(productID, productData, callback)
     }
 
-    private val _products = MutableLiveData<ProductModel?>()
-    val products: LiveData<ProductModel?> get() = _products
+    private val _product = MutableStateFlow<ProductModel?>(null)
+    val product: StateFlow<ProductModel?> = _product
 
     fun getProductByID(productID: String) {
         repo.getProductByID(productID) { data, success, message ->
             if (success) {
-                _products.postValue(data)
+                _product.value = data
             } else {
-                _products.postValue(null)
+                _product.value = null
             }
         }
     }
 
-    private val _allProducts = MutableLiveData<List<ProductModel>>()
-    val allProducts: LiveData<List<ProductModel>> get() = _allProducts
+    private val _allProducts = MutableStateFlow<List<ProductModel>>(emptyList())
+    val allProducts: StateFlow<List<ProductModel>> = _allProducts
 
-    private val _loading = MutableLiveData<Boolean>()
-    val loading: LiveData<Boolean> get() = _loading
+    private val _loading = MutableStateFlow(false)
+    val loading: StateFlow<Boolean> = _loading
 
     fun getAllProduct() {
-        _loading.postValue(true)
+        _loading.value = true
         repo.getAllProduct { data, success, message ->
             if (success) {
-                _loading.postValue(false)
+                _loading.value = false
                 Log.d("ShineSales", message)
-                _allProducts.postValue((data ?: emptyList()) as List<ProductModel>?)
+                _allProducts.value = (data ?: emptyList()) as List<ProductModel>
             } else {
-                _loading.postValue(false)
+                _loading.value = false
                 Log.d("ShineSales", message)
-                _allProducts.postValue(emptyList())
+                _allProducts.value = emptyList()
             }
         }
     }
