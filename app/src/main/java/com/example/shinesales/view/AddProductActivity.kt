@@ -37,6 +37,7 @@ import com.example.shinesales.model.ProductModel
 import com.example.shinesales.repository.ProductRepositoryImpl  // ADD THIS IMPORT
 import com.example.shinesales.ui.theme.ShineSalesTheme
 import com.example.shinesales.viewmodel.ProductViewModel
+import com.example.shinesales.ui.theme.*
 
 class AddProductActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -86,9 +87,9 @@ fun AddProductBody(
     val activity = context as? Activity
 
     // ShineSales theme colors
-    val primaryColor = Color(0xFF6A1B9A)
-    val goldColor = Color(0xFFFFD700)
-    val backgroundColor = Color(0xFFF8F6FF)
+    val primaryColor = Gold80 // Rich Gold
+    val goldColor = Gold80 // Rich Gold
+    val backgroundColor = GrayBackground // Ivory White
 
     Scaffold(
         containerColor = backgroundColor,

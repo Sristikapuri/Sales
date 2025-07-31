@@ -33,6 +33,7 @@ import com.example.shinesales.model.ProductModel
 import com.example.shinesales.repository.ProductRepositoryImpl
 import com.example.shinesales.ui.theme.ShineSalesTheme
 import com.example.shinesales.viewmodel.ProductViewModel
+import com.example.shinesales.ui.theme.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -60,9 +61,9 @@ fun ViewProductScreen() {
     var showDeleteDialog by remember { mutableStateOf(false) }
     var productToDelete by remember { mutableStateOf<ProductModel?>(null) }
 
-    val primaryColor = Color(0xFF6A1B9A)
-    val goldColor = Color(0xFFFFD700)
-    val backgroundColor = Color(0xFFF8F6FF)
+    val primaryColor = Gold80 // Rich Gold
+    val goldColor = Gold80 // Rich Gold
+    val backgroundColor = GrayBackground // Ivory White
 
     LaunchedEffect(Unit) {
         loadProducts(repo) { productList, success, message ->

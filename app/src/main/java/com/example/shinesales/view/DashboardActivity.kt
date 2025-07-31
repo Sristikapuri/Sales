@@ -31,8 +31,9 @@ import androidx.compose.ui.unit.sp
 import com.example.shinesales.R
 import com.example.shinesales.model.UserModel
 import com.example.shinesales.repository.UserRepositoryImpl
-import com.example.shinesales.ui.theme.ShineSalesTheme
+import com.example.shinesales.ui.theme.*
 import com.example.shinesales.viewmodel.UserViewModel
+import com.example.shinesales.ui.theme.*
 
 class DashboardActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,9 +62,9 @@ fun DashboardScreen() {
     var userAddress by remember { mutableStateOf("") }
     var isUserDataLoaded by remember { mutableStateOf(false) }
 
-    val primaryColor = Color(0xFF6A1B9A)
-    val goldColor = Color(0xFFFFD700)
-    val backgroundColor = Color(0xFFF8F6FF)
+    val primaryColor = Gold80 // Rich Gold
+    val goldColor = Gold80 // Rich Gold
+    val backgroundColor = GrayBackground // Ivory White
 
     // Data loading
     LaunchedEffect(Unit) {
@@ -144,32 +145,44 @@ fun DashboardScreen() {
                     colors = NavigationBarItemDefaults.colors(
                         selectedIconColor = primaryColor,
                         selectedTextColor = primaryColor,
-                        unselectedIconColor = Color.Gray,
-                        unselectedTextColor = Color.Gray
+                        unselectedIconColor = MediumGray,
+                        unselectedTextColor = MediumGray
                     )
                 )
                 NavigationBarItem(
-                    icon = { Icon(Icons.Default.Search, contentDescription = "Search") },
-                    label = { Text("Search") },
+                    icon = { Icon(Icons.Default.List, contentDescription = "Products") },
+                    label = { Text("Products") },
                     selected = selectedTab == 1,
                     onClick = { selectedTab = 1 },
                     colors = NavigationBarItemDefaults.colors(
                         selectedIconColor = primaryColor,
                         selectedTextColor = primaryColor,
-                        unselectedIconColor = Color.Gray,
-                        unselectedTextColor = Color.Gray
+                        unselectedIconColor = MediumGray,
+                        unselectedTextColor = MediumGray
                     )
                 )
                 NavigationBarItem(
-                    icon = { Icon(Icons.Default.Person, contentDescription = "Profile") },
-                    label = { Text("Profile") },
+                    icon = { Icon(Icons.Default.Search, contentDescription = "Search") },
+                    label = { Text("Search") },
                     selected = selectedTab == 2,
                     onClick = { selectedTab = 2 },
                     colors = NavigationBarItemDefaults.colors(
                         selectedIconColor = primaryColor,
                         selectedTextColor = primaryColor,
-                        unselectedIconColor = Color.Gray,
-                        unselectedTextColor = Color.Gray
+                        unselectedIconColor = MediumGray,
+                        unselectedTextColor = MediumGray
+                    )
+                )
+                NavigationBarItem(
+                    icon = { Icon(Icons.Default.Person, contentDescription = "Profile") },
+                    label = { Text("Profile") },
+                    selected = selectedTab == 3,
+                    onClick = { selectedTab = 3 },
+                    colors = NavigationBarItemDefaults.colors(
+                        selectedIconColor = primaryColor,
+                        selectedTextColor = primaryColor,
+                        unselectedIconColor = MediumGray,
+                        unselectedTextColor = MediumGray
                     )
                 )
             }
@@ -178,17 +191,18 @@ fun DashboardScreen() {
         when (selectedTab) {
             0 -> HomeScreen(
                 paddingValues = paddingValues,
-                primaryColor = primaryColor,
-                goldColor = goldColor,
-                backgroundColor = backgroundColor,
+                primaryColor = Gold40,
+                goldColor = Gold80,
+                backgroundColor = GoldBackground,
                 navigateToAddProduct = ::navigateToAddProduct,
                 navigateToViewAddedProduct = ::navigateToViewAddedProduct,
                 userName = userName
             )
-            1 -> SearchScreen(paddingValues = paddingValues, primaryColor = primaryColor)
-            2 -> ProfileScreen(
+            1 -> ProductListScreen()
+            2 -> SearchScreen(paddingValues = paddingValues, primaryColor = Gold40)
+            3 -> ProfileScreen(
                 paddingValues = paddingValues,
-                primaryColor = primaryColor,
+                primaryColor = Gold40,
                 userName = userName,
                 userEmail = userEmail,
                 userPhone = userPhone,
@@ -278,7 +292,7 @@ fun HomeScreen(
                     .height(200.dp)
             ) {
                 Image(
-                    painter = painterResource(R.drawable.img6), // Replace with your jewelry showcase image
+                    painter = painterResource(R.drawable.img7), // Replace with your jewelry showcase image
                     contentDescription = "Premium Jewellry Collection",
                     modifier = Modifier.fillMaxSize(),
                     contentScale = ContentScale.Crop
@@ -360,12 +374,12 @@ fun HomeScreen(
                             "View Added Products",
                             fontSize = 16.sp,
                             fontWeight = FontWeight.Bold,
-                            color = Color(0xFF2D1B3D)
+                            color = DarkText
                         )
                         Text(
                             "Check your added jewelry items",
                             fontSize = 12.sp,
-                            color = Color(0xFF2D1B3D).copy(alpha = 0.7f)
+                            color = DarkText.copy(alpha = 0.7f)
                         )
                     }
                 }
@@ -529,7 +543,7 @@ fun SearchScreen(paddingValues: PaddingValues, primaryColor: Color) {
                         Icon(
                             Icons.Default.Clear,
                             contentDescription = "Clear",
-                            tint = Color.Gray
+                            tint = MediumGray
                         )
                     }
                 }
@@ -560,7 +574,7 @@ fun SearchScreen(paddingValues: PaddingValues, primaryColor: Color) {
                     Text(
                         "Loading your products...",
                         fontSize = 16.sp,
-                        color = Color.Gray
+                        color = MediumGray
                     )
                 }
             }
@@ -583,12 +597,12 @@ fun SearchScreen(paddingValues: PaddingValues, primaryColor: Color) {
                         "Unable to load products",
                         fontSize = 18.sp,
                         fontWeight = FontWeight.Medium,
-                        color = Color.Gray
+                        color = MediumGray
                     )
                     Text(
                         "Please check your connection and try again",
                         fontSize = 14.sp,
-                        color = Color.Gray,
+                        color = MediumGray,
                         textAlign = TextAlign.Center
                     )
                 }
@@ -617,7 +631,7 @@ fun SearchScreen(paddingValues: PaddingValues, primaryColor: Color) {
                     Text(
                         "You haven't added any products yet.\nStart by adding some jewelry items!",
                         fontSize = 16.sp,
-                        color = Color.Gray,
+                        color = MediumGray,
                         textAlign = TextAlign.Center
                     )
                     Spacer(modifier = Modifier.height(24.dp))
@@ -641,7 +655,7 @@ fun SearchScreen(paddingValues: PaddingValues, primaryColor: Color) {
                     Text(
                         "Found ${searchResults.size} product(s)",
                         fontSize = 14.sp,
-                        color = Color.Gray,
+                        color = MediumGray,
                         modifier = Modifier.padding(bottom = 12.dp)
                     )
 
@@ -682,12 +696,12 @@ fun SearchScreen(paddingValues: PaddingValues, primaryColor: Color) {
                                             searchResults[index],
                                             fontSize = 16.sp,
                                             fontWeight = FontWeight.Medium,
-                                            color = Color(0xFF2D1B3D)
+                                            color = DarkText
                                         )
                                         Text(
                                             "Added to your collection",
                                             fontSize = 12.sp,
-                                            color = Color.Gray
+                                            color = MediumGray
                                         )
                                     }
                                     Icon(
@@ -708,7 +722,7 @@ fun SearchScreen(paddingValues: PaddingValues, primaryColor: Color) {
                         Icon(
                             Icons.Default.Search,
                             contentDescription = "No Results",
-                            tint = Color.Gray,
+                            tint = MediumGray,
                             modifier = Modifier.size(64.dp)
                         )
                         Spacer(modifier = Modifier.height(16.dp))
@@ -716,19 +730,19 @@ fun SearchScreen(paddingValues: PaddingValues, primaryColor: Color) {
                             "No Products Found",
                             fontSize = 18.sp,
                             fontWeight = FontWeight.Medium,
-                            color = Color.Gray
+                            color = MediumGray
                         )
                         Text(
                             "No products match your search \"$searchQuery\"",
                             fontSize = 14.sp,
-                            color = Color.Gray,
+                            color = MediumGray,
                             textAlign = TextAlign.Center
                         )
                         Spacer(modifier = Modifier.height(8.dp))
                         Text(
                             "Try different keywords or check spelling",
                             fontSize = 12.sp,
-                            color = Color.Gray,
+                            color = MediumGray,
                             textAlign = TextAlign.Center
                         )
                     }
@@ -759,13 +773,13 @@ fun SearchScreen(paddingValues: PaddingValues, primaryColor: Color) {
                         Text(
                             "You have ${allProducts.size} product(s) added",
                             fontSize = 16.sp,
-                            color = Color.Gray,
+                            color = MediumGray,
                             textAlign = TextAlign.Center
                         )
                         Text(
                             "Enter keywords to find your jewelry items",
                             fontSize = 14.sp,
-                            color = Color.Gray,
+                            color = MediumGray,
                             textAlign = TextAlign.Center
                         )
                     }
@@ -846,7 +860,7 @@ fun ProfileScreen(
                     "Account Information",
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold,
-                    color = Color(0xFF2D1B3D),
+                    color = DarkText,
                     modifier = Modifier.padding(bottom = 16.dp)
                 )
 
@@ -891,8 +905,27 @@ fun ProfileScreen(
 
         Spacer(modifier = Modifier.height(20.dp))
 
+        // Edit Profile Button
+        ProfileOption(
+            icon = Icons.Default.Edit,
+            title = "Edit Profile",
+            subtitle = "Update your personal information",
+            onClick = {
+                val currentUser = userViewModel.getCurrentUser()
+                currentUser?.let { user ->
+                    val intent = Intent(context, EditProfileActivity::class.java).apply {
+                        putExtra("USER_ID", user.uid)
+                        putExtra("USER_NAME", userName)
+                        putExtra("USER_EMAIL", userEmail)
+                        putExtra("USER_PHONE", userPhone)
+                        putExtra("USER_ADDRESS", userAddress)
+                    }
+                    context.startActivity(intent)
+                }
+            }
+        )
 
-
+        Spacer(modifier = Modifier.height(16.dp))
 
         ProfileOption(
             icon = Icons.Default.ExitToApp,
@@ -936,13 +969,13 @@ fun UserInfoRow(
             Text(
                 label,
                 fontSize = 12.sp,
-                color = Color.Gray
+                color = MediumGray
             )
             Text(
                 value,
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Medium,
-                color = Color(0xFF2D1B3D)
+                color = DarkText
             )
         }
     }
@@ -977,7 +1010,7 @@ fun ProfileOption(
             Icon(
                 icon,
                 contentDescription = null,
-                tint = Color(0xFF6A1B9A),
+                tint = Gold80,
                 modifier = Modifier.size(24.dp)
             )
             Spacer(modifier = Modifier.width(16.dp))
@@ -988,18 +1021,18 @@ fun ProfileOption(
                     title,
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Medium,
-                    color = Color(0xFF2D1B3D)
+                    color = DarkText
                 )
                 Text(
                     subtitle,
                     fontSize = 12.sp,
-                    color = Color.Gray
+                    color = MediumGray
                 )
             }
             Icon(
                 Icons.Default.CheckCircle,
                 contentDescription = null,
-                tint = Color.Gray
+                tint = MediumGray
             )
         }
     }
