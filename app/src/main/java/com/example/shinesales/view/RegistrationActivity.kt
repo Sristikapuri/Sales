@@ -72,6 +72,7 @@ import com.example.shinesales.R
 import com.example.shinesales.model.UserModel
 import com.example.shinesales.repository.UserRepositoryImpl
 import com.example.shinesales.viewmodel.UserViewModel
+import com.example.shinesales.ui.theme.*
 
 class RegistrationActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -105,12 +106,12 @@ fun RegistrationBody() {
     val scrollState = rememberScrollState()
 
     // Jewelry theme colors
-    val primaryColor = Color(0xFF6A1B9A) // Deep Purple for luxury
-    val goldColor = Color(0xFFFFD700) // Gold accent
-    val backgroundColor = Color(0xFFF8F6FF) // Very light purple
+    val primaryColor = Gold80 // Rich Gold for luxury
+    val goldColor = Gold80 // Gold accent
+    val backgroundColor = GrayBackground // Ivory White
     val cardColor = Color.White
-    val textColor = Color(0xFF2D1B3D) // Dark purple
-    val placeholderColor = Color(0xFF8E24AA) // Medium purple
+    val textColor = DarkText // Warm Brown
+    val placeholderColor = MediumGray // Antique Gold
 
     Scaffold(
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) }

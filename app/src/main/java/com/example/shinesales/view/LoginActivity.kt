@@ -70,6 +70,7 @@ import kotlinx.coroutines.launch
 import com.example.shinesales.R
 import com.example.shinesales.repository.UserRepositoryImpl
 import com.example.shinesales.viewmodel.UserViewModel
+import com.example.shinesales.ui.theme.*
 
 class LoginActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -117,12 +118,12 @@ fun LoginBody(innerPaddingValues: PaddingValues) {
     }
 
     // Jewelry theme color scheme
-    val primaryColor = Color(0xFF6A1B9A) // Deep Purple for luxury
-    val goldColor = Color(0xFFFFD700) // Gold accent
-    val backgroundColor = Color(0xFFF8F6FF) // Very light purple
+    val primaryColor = Gold80 // Rich Gold for luxury
+    val goldColor = Gold80 // Rich Gold accent
+    val backgroundColor = GrayBackground // Ivory White
     val cardColor = Color.White
-    val textColor = Color(0xFF2D1B3D) // Dark purple
-    val placeholderColor = Color(0xFF8E24AA) // Medium purple
+    val textColor = DarkText // Warm Brown
+    val placeholderColor = MediumGray // Antique Gold
 
     Scaffold(
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) }
@@ -134,7 +135,7 @@ fun LoginBody(innerPaddingValues: PaddingValues) {
                     brush = Brush.verticalGradient(
                         colors = listOf(
                             backgroundColor,
-                            Color(0xFFE8EAF6) // Light purple gradient
+                            GoldLight80 // Champagne Gold gradient
                         )
                     )
                 )
@@ -218,7 +219,7 @@ fun LoginBody(innerPaddingValues: PaddingValues) {
                             shape = RoundedCornerShape(12.dp),
                             colors = OutlinedTextFieldDefaults.colors(
                                 focusedBorderColor = primaryColor,
-                                unfocusedBorderColor = Color(0xFFE1BEE7),
+                                unfocusedBorderColor = Silver40,
                                 focusedLabelColor = primaryColor
                             ),
                             keyboardOptions = KeyboardOptions(
@@ -264,7 +265,7 @@ fun LoginBody(innerPaddingValues: PaddingValues) {
                             shape = RoundedCornerShape(12.dp),
                             colors = OutlinedTextFieldDefaults.colors(
                                 focusedBorderColor = primaryColor,
-                                unfocusedBorderColor = Color(0xFFE1BEE7),
+                                unfocusedBorderColor = Silver40,
                                 focusedLabelColor = primaryColor
                             ),
                             keyboardOptions = KeyboardOptions(
@@ -289,7 +290,7 @@ fun LoginBody(innerPaddingValues: PaddingValues) {
                                     colors = CheckboxDefaults.colors(
                                         checkedColor = primaryColor,
                                         checkmarkColor = Color.White,
-                                        uncheckedColor = Color(0xFFE1BEE7)
+                                        uncheckedColor = Silver40
                                     )
                                 )
                                 Text(
