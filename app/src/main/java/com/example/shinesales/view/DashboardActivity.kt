@@ -11,6 +11,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -835,6 +837,7 @@ fun ProfileScreen(
             .fillMaxSize()
             .padding(paddingValues)
             .padding(16.dp)
+            .verticalScroll(rememberScrollState())
     ) {
         // Profile Header
         Card(
@@ -933,6 +936,48 @@ fun ProfileScreen(
 
         Spacer(modifier = Modifier.height(20.dp))
 
+        // Simple Logout Button - Placed prominently
+        Button(
+            onClick = {
+                userViewModel.logout { success, message ->
+                    Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+                    if (success) {
+                        val intent = Intent(context, LoginActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        context.startActivity(intent)
+                    }
+                }
+            },
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(56.dp),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color.Red.copy(alpha = 0.8f)
+            ),
+            shape = RoundedCornerShape(12.dp)
+        ) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center
+            ) {
+                Icon(
+                    Icons.Default.ExitToApp,
+                    contentDescription = "Logout",
+                    tint = Color.White,
+                    modifier = Modifier.size(24.dp)
+                )
+                Spacer(modifier = Modifier.width(8.dp))
+                Text(
+                    "Logout",
+                    color = Color.White,
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+        }
+
+        Spacer(modifier = Modifier.height(16.dp))
+
         // Edit Profile Button
         ProfileOption(
             icon = Icons.Default.Edit,
@@ -953,23 +998,7 @@ fun ProfileScreen(
             }
         )
 
-        Spacer(modifier = Modifier.height(16.dp))
-
-        ProfileOption(
-            icon = Icons.Default.ExitToApp,
-            title = "Logout",
-            subtitle = "Sign out of your account",
-            onClick = {
-                userViewModel.logout { success, message ->
-                    Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
-                    if (success) {
-                        val intent = Intent(context, LoginActivity::class.java)
-                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                        context.startActivity(intent)
-                    }
-                }
-            }
-        )
+        Spacer(modifier = Modifier.height(20.dp))
     }
 }
 
