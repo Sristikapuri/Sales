@@ -28,12 +28,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+
 import com.example.shinesales.R
-import com.example.shinesales.model.UserModel
 import com.example.shinesales.repository.UserRepositoryImpl
 import com.example.shinesales.ui.theme.*
 import com.example.shinesales.viewmodel.UserViewModel
-import com.example.shinesales.ui.theme.*
+import com.example.shinesales.model.ProductModel
+import com.example.shinesales.repository.ProductRepositoryImpl
+import coil.compose.AsyncImage
 
 class DashboardActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -457,8 +459,8 @@ fun SearchScreen(paddingValues: PaddingValues, primaryColor: Color) {
     val userViewModel = remember { UserViewModel(repo) }
 
     var searchQuery by remember { mutableStateOf("") }
-    var searchResults by remember { mutableStateOf<List<String>>(emptyList()) }
-    var allProducts by remember { mutableStateOf<List<String>>(emptyList()) }
+    var searchResults by remember { mutableStateOf<List<ProductModel>>(emptyList()) }
+    var allProducts by remember { mutableStateOf<List<ProductModel>>(emptyList()) }
     var isLoading by remember { mutableStateOf(true) }
     var hasError by remember { mutableStateOf(false) }
 
@@ -467,23 +469,16 @@ fun SearchScreen(paddingValues: PaddingValues, primaryColor: Color) {
         val currentUser = userViewModel.getCurrentUser()
         if (currentUser != null) {
             try {
-                // Replace this with your actual method to get products
-                // Example: Load products from your repository
-                // repo.getProductsByUserId(currentUser.uid) { products, success, message ->
-                //     if (success && products != null) {
-                //         allProducts = products.map { "${it.name} - ₹${it.price}" }
-                //     } else {
-                //         hasError = true
-                //     }
-                //     isLoading = false
-                // }
-
-                // For now, simulating loading - replace with actual data loading
-                kotlinx.coroutines.delay(1000) // Simulate network delay
-
-                // You'll need to replace this with actual product loading logic
-                // This is just a placeholder until you implement proper product fetching
-                allProducts = emptyList() // This will be populated with real products
+                // Load actual products from repository
+                val productRepo = ProductRepositoryImpl()
+                productRepo.getAllProduct { products, success, message ->
+                    if (success && products != null) {
+                        allProducts = products.filterNotNull()
+                    } else {
+                        hasError = true
+                    }
+                    isLoading = false
+                }
                 isLoading = false
 
             } catch (e: Exception) {
@@ -501,8 +496,10 @@ fun SearchScreen(paddingValues: PaddingValues, primaryColor: Color) {
         searchResults = if (searchQuery.isBlank()) {
             emptyList()
         } else {
-            allProducts.filter {
-                it.lowercase().contains(searchQuery.lowercase())
+            allProducts.filter { product ->
+                product.productName.lowercase().contains(searchQuery.lowercase()) ||
+                product.category.lowercase().contains(searchQuery.lowercase()) ||
+                product.description.lowercase().contains(searchQuery.lowercase())
             }
         }
     }
@@ -677,38 +674,69 @@ fun SearchScreen(paddingValues: PaddingValues, primaryColor: Color) {
                                         .padding(16.dp),
                                     verticalAlignment = Alignment.CenterVertically
                                 ) {
-                                    Box(
+                                    AsyncImage(
+                                        model = searchResults[index].image,
+                                        contentDescription = "Product Image",
                                         modifier = Modifier
                                             .size(50.dp)
-                                            .background(primaryColor.copy(alpha = 0.1f), CircleShape),
-                                        contentAlignment = Alignment.Center
-                                    ) {
-                                        Icon(
-                                            Icons.Default.ShoppingCart,
-                                            contentDescription = "Product",
-                                            tint = primaryColor,
-                                            modifier = Modifier.size(24.dp)
-                                        )
-                                    }
+                                            .clip(RoundedCornerShape(8.dp)),
+                                        contentScale = ContentScale.Crop,
+                                        error = painterResource(R.drawable.img5), // Fallback image
+                                        placeholder = painterResource(R.drawable.img5)
+                                    )
                                     Spacer(modifier = Modifier.width(16.dp))
                                     Column(modifier = Modifier.weight(1f)) {
                                         Text(
-                                            searchResults[index],
+                                            searchResults[index].productName,
                                             fontSize = 16.sp,
                                             fontWeight = FontWeight.Medium,
                                             color = DarkText
                                         )
                                         Text(
-                                            "Added to your collection",
+                                            "₹${searchResults[index].price} • ${searchResults[index].category}",
                                             fontSize = 12.sp,
                                             color = MediumGray
                                         )
                                     }
-                                    Icon(
-                                        Icons.Default.KeyboardArrowRight,
-                                        contentDescription = "View Details",
-                                        tint = primaryColor
-                                    )
+                                    
+                                    // Add to Cart Button
+                                    Button(
+                                        onClick = {
+                                            // Add to cart functionality
+                                            Toast.makeText(
+                                                context,
+                                                "${searchResults[index].productName} added to cart!",
+                                                Toast.LENGTH_SHORT
+                                            ).show()
+                                        },
+                                        modifier = Modifier
+                                            .height(36.dp)
+                                            .width(100.dp),
+                                        colors = ButtonDefaults.buttonColors(
+                                            containerColor = primaryColor
+                                        ),
+                                        shape = RoundedCornerShape(18.dp),
+                                        contentPadding = PaddingValues(horizontal = 12.dp, vertical = 4.dp)
+                                    ) {
+                                        Row(
+                                            verticalAlignment = Alignment.CenterVertically,
+                                            horizontalArrangement = Arrangement.Center
+                                        ) {
+                                            Icon(
+                                                Icons.Default.Add,
+                                                contentDescription = "Add to Cart",
+                                                modifier = Modifier.size(16.dp),
+                                                tint = Color.White
+                                            )
+                                            Spacer(modifier = Modifier.width(4.dp))
+                                            Text(
+                                                "Cart",
+                                                fontSize = 12.sp,
+                                                fontWeight = FontWeight.Medium,
+                                                color = Color.White
+                                            )
+                                        }
+                                    }
                                 }
                             }
                         }
