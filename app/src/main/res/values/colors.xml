@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Gold Theme Colors -->
-    <color name="gold_200">#FFFFD700</color>
-    <color name="gold_500">#FFDAA520</color>
-    <color name="gold_700">#FFB8860B</color>
-    <color name="gold_light">#FFFFF0B3</color>
-    <color name="gold_dark">#FF8B7500</color>
-    <color name="gold_background">#FFFFAE60</color>
-    <color name="gold_surface">#FFFFF8DC</color>
-    <color name="text_on_gold">#FF3E2723</color>
+    <!-- Peach Theme Colors -->
+    <color name="peach_200">#FFE0B2</color>  <!-- Light Peach -->
+    <color name="peach_300">#FFCC80</color>  <!-- Peach -->
+    <color name="peach_400">#FFB74D</color>  <!-- Soft Peach -->
+    <color name="peach_500">#FFA726</color>  <!-- Medium Peach -->
+    <color name="peach_600">#FB8C00</color>  <!-- Dark Peach -->
+    <color name="peach_700">#F57C00</color>  <!-- Deep Peach -->
+    <color name="peach_light">#FFF3E0</color>  <!-- Very Light Peach -->
+    <color name="peach_dark">#E65100</color>  <!-- Very Dark Peach -->
+    <color name="peach_background">#FFF8F2</color>  <!-- Off-White with Peach Tint -->
+    <color name="peach_surface">#FFFFFF</color>  <!-- Pure White -->
+    <color name="text_on_peach">#3E2723</color>  <!-- Dark Brown for contrast -->
+    <color name="secondary_text">#5D4037</color>  <!-- Slightly Lighter Brown -->
     
     <!-- Keep original colors for backward compatibility -->
     <color name="purple_200">#FFBB86FC</color>

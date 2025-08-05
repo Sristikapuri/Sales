@@ -1,22 +1,22 @@
 {
   "project_info": {
-    "project_number": "276075358668",
-    "firebase_url": "https://shinesalessristika-default-rtdb.firebaseio.com",
-    "project_id": "shinesalessristika",
-    "storage_bucket": "shinesalessristika.firebasestorage.app"
+    "project_number": "555542795899",
+    "firebase_url": "https://beautyhub-16781-default-rtdb.firebaseio.com",
+    "project_id": "beautyhub-16781",
+    "storage_bucket": "beautyhub-16781.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:276075358668:android:3941eabaf69c5c31ce5569",
+        "mobilesdk_app_id": "1:555542795899:android:a29c16593bae7e71e4b4de",
         "android_client_info": {
-          "package_name": "com.example.shinesales"
+          "package_name": "com.example.beautyhub"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCn8yTRGSt89HeRiSD8ljpgR-0JiqmPrkw"
+          "current_key": "AIzaSyCv569M-2ZJQABWg8PGCBymvgB9fx90bAY"
         }
       ],
       "services": {
